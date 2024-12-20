@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>iisnode logs</title>
+    <style type="text/css">
+        body
+        {
+            font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        }
+        table
+        {
+            border-collapse: collapse;
+        }
+        td, th
+        {
+            border: 1px solid lightgray;
+            padding: 3px 7px 2px 7px;
+        }
+        th
+        {
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: Gray;
+            color: #ffffff;
+        }
+        td.stderr
+        {
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <table id="logFilesTable">
+        <tr>
+            <th>
+                Computer name
+            </th>
+            <th>
+                PID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </table>
+    <p id="lastUpdated"></p>
+    <script type="text/javascript">
+
+        // this is replaced with actual data at runtime by code in interceptor.js
+        var logFiles = [{"file":"MANSURI-10092-stderr-1734252059420.txt","computername":"MANSURI","pid":10092,"type":"stderr","created":1734252059420},{"file":"MANSURI-10636-stderr-1734252302832.txt","computername":"MANSURI","pid":10636,"type":"stderr","created":1734252302832},{"file":"MANSURI-15120-stderr-1734252274500.txt","computername":"MANSURI","pid":15120,"type":"stderr","created":1734252274500},{"file":"MANSURI-19312-stderr-1734252302995.txt","computername":"MANSURI","pid":19312,"type":"stderr","created":1734252302995},{"file":"MANSURI-1948-stderr-1734252031336.txt","computername":"MANSURI","pid":1948,"type":"stderr","created":1734252031336},{"file":"MANSURI-21124-stderr-1734252301897.txt","computername":"MANSURI","pid":21124,"type":"stderr","created":1734252301897},{"file":"MANSURI-21336-stderr-1734252058470.txt","computername":"MANSURI","pid":21336,"type":"stderr","created":1734252058470},{"file":"MANSURI-21836-stderr-1734252246031.txt","computername":"MANSURI","pid":21836,"type":"stderr","created":1734252246031},{"file":"MANSURI-2204-stderr-1734251925483.txt","computername":"MANSURI","pid":2204,"type":"stderr","created":1734251925483},{"file":"MANSURI-23572-stderr-1734252031184.txt","computername":"MANSURI","pid":23572,"type":"stderr","created":1734252031184},{"file":"MANSURI-26068-stderr-1734251729452.txt","computername":"MANSURI","pid":26068,"type":"stderr","created":1734251729452},{"file":"MANSURI-26468-stderr-1734252059589.txt","computername":"MANSURI","pid":26468,"type":"stderr","created":1734252059589},{"file":"MANSURI-30640-stderr-1734252030803.txt","computername":"MANSURI","pid":30640,"type":"stderr","created":1734252030803},{"file":"MANSURI-30972-stderr-1734252302644.txt","computername":"MANSURI","pid":30972,"type":"stderr","created":1734252302644},{"file":"MANSURI-32520-stderr-1734252303273.txt","computername":"MANSURI","pid":32520,"type":"stderr","created":1734252303273},{"file":"MANSURI-33728-stderr-1734252031011.txt","computername":"MANSURI","pid":33728,"type":"stderr","created":1734252031011},{"file":"MANSURI-3568-stderr-1734252303151.txt","computername":"MANSURI","pid":3568,"type":"stderr","created":1734252303151},{"file":"MANSURI-6416-stderr-1734252029814.txt","computername":"MANSURI","pid":6416,"type":"stderr","created":1734252029814},{"file":"MANSURI-676-stderr-1734251999219.txt","computername":"MANSURI","pid":676,"type":"stderr","created":1734251999219},{"file":"MANSURI-8880-stderr-1734251898350.txt","computername":"MANSURI","pid":8880,"type":"stderr","created":1734251898350},{"file":"MANSURI-8880-stdout-1734251898350.txt","computername":"MANSURI","pid":8880,"type":"stdout","created":1734251898350}];
+        var lastUpdated = 1734252303278;
+        var date = new Date();
+
+        date.setTime(lastUpdated);
+        document.getElementById('lastUpdated').innerHTML = 'Index was last updated ' + date;
+
+        logFiles.sort(function (a, b) {
+            return b.created - a.created;
+        });
+
+        var logFilesTable = document.getElementById("logFilesTable");
+        for (var i = 0; i < logFiles.length; i++) {
+            var logFile = logFiles[i];
+            date.setTime(logFile.created);
+            var row = logFilesTable.insertRow(-1);
+            var computerNameCell = row.insertCell(0);
+            var pidCell = row.insertCell(1);
+            var typeCell = row.insertCell(2);
+            var dateCell = row.insertCell(3);
+            var logCell = row.insertCell(4);
+            computerNameCell.innerHTML = logFile.computername;
+            pidCell.innerHTML = logFile.pid.toString();
+            typeCell.innerHTML = logFile.type;
+            typeCell.setAttribute('class', logFile.type);
+            dateCell.innerHTML = date.toString();
+            logCell.innerHTML = '<a href="' + logFile.file + '">log</a>';
+        };
+
+    </script>
+</body>
+</html>
